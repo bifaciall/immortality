@@ -2,14 +2,16 @@ package dev.bifacial.immortality;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
-import java.util.EventListener;
 
-public class Events extends JavaPlugin implements EventListener {
+
+public class Events extends JavaPlugin implements Listener {
+    
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent deathEvent){
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
@@ -21,6 +23,7 @@ public class Events extends JavaPlugin implements EventListener {
         skullMeta.setOwner(deathEvent.getPlayer().getName());
         skullMeta.setUnbreakable(true);
         skull.setItemMeta(skullMeta);
+        deathEvent.getPlayer().getKiller().getInventory().addItem(skull);
 
     }
 
