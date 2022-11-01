@@ -6,7 +6,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.println("Started Immortality!");
+        System.out.println("Started Immortality");
 
     }
 
