@@ -2,5 +2,5 @@ name: Immortality
 version: '${project.version}'
 main: dev.bifacial.immortality.Main
 api-version: 1.19
-authors: [ me, myself, bifacial ]
+authors: [me]
 description: Cant be fucked to do that
