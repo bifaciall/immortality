@@ -42,8 +42,6 @@ public final class Main extends JavaPlugin implements Listener{
     }
     @EventHandler
     public void onPlace(BlockPlaceEvent blockPlaceEvent){
-        //sends Player a Message of what block they just placed... just for debugging
-        blockPlaceEvent.getPlayer().sendMessage(blockPlaceEvent.getItemInHand().displayName());
         if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD) && !blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName().equals("Player Head")) {
             Player p = Bukkit.getPlayer(blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName());
             assert p != null;
