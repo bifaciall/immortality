@@ -46,12 +46,11 @@ public final class Main extends JavaPlugin implements Listener{
     }
     @EventHandler
     public void onPlace(BlockPlaceEvent blockPlaceEvent){
-        //Player ded = Bukkit.getPlayer(String.valueOf(blockPlaceEvent.getItemInHand().displayName()));- not important
-        //gives just the item name
+        //sends Player a Message of what block they just placed... just for debugging
         blockPlaceEvent.getPlayer().sendMessage(blockPlaceEvent.getItemInHand().displayName());
-        //gibberish
         System.out.println(String.valueOf(blockPlaceEvent.getItemInHand().displayName()));
         Player ded = Bukkit.getPlayer(String.valueOf(blockPlaceEvent.getItemInHand().displayName()).toLowerCase());
+        //doesnt work yet... returns null
         ded.setGameMode(GameMode.SURVIVAL);
 
     }
