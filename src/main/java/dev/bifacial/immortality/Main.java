@@ -37,7 +37,7 @@ public final class Main extends JavaPlugin implements Listener{
         skullMeta.setOwningPlayer(deathEvent.getPlayer());
         skullMeta.setUnbreakable(true);
         skull.setItemMeta(skullMeta);
-        Bukkit.getWorld(deathEvent.getPlayer().getName()).dropItem(deathEvent.getPlayer().getLocation(), skull);
+        Objects.requireNonNull(deathEvent.getPlayer().getKiller()).getWorld().dropItem(deathEvent.getPlayer().getLocation(), skull);
         if (deathEvent.getPlayer().getKiller() != null) deathEvent.getPlayer().setGameMode(GameMode.SPECTATOR);
     }
     @EventHandler
