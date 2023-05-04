@@ -13,6 +13,7 @@ import java.util.Objects;
 public class DeathEvent implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent deathEvent){
+
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.displayName(deathEvent.getPlayer().name());

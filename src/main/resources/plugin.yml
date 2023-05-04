@@ -4,3 +4,8 @@ main: dev.bifacial.immortality.Main
 api-version: 1.19
 authors: [me]
 description: A plugin that allows you to revive a dead player by his head.
+commands:
+  toggle:
+    description: Toggles the Immortality Plugin
+    usage: /toggle
+    permission: immortality.toggle
