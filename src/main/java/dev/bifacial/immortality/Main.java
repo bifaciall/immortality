@@ -13,9 +13,9 @@ public final class Main extends JavaPlugin implements Listener{
     @Override
     public void onEnable() {
         getServer().getLogger().info("Started.");
-        Bukkit.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new DeadPlayerMoveEvent(), this);
+        getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+        getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
+        getServer().getPluginManager().registerEvents(new DeadPlayerMoveEvent(), this);
         //Bukkit.getServer().getPluginManager().registerEvents(new HeadPlaceEvent(), this);
 
     }
