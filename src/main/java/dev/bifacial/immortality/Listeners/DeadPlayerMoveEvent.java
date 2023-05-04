@@ -8,7 +8,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class DeadPlayerMoveEvent implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent playerMoveEvent){
-        if (playerMoveEvent.getPlayer().getGameMode().equals(GameMode.SPECTATOR)){
+        DeathEvent d = new DeathEvent();
+        if (d.isDead()){
             playerMoveEvent.setCancelled(true);
         }
     }
