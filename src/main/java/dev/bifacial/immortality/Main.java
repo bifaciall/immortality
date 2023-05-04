@@ -1,4 +1,8 @@
 package dev.bifacial.immortality;
+import dev.bifacial.immortality.Listeners.DeadPlayerMoveEvent;
+import dev.bifacial.immortality.Listeners.DeathEvent;
+import dev.bifacial.immortality.Listeners.HeadPlaceEvent;
+import dev.bifacial.immortality.Listeners.RightClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -21,60 +25,33 @@ public final class Main extends JavaPlugin implements Listener{
 
     @Override
     public void onEnable() {
-        System.out.println("Started Immortality");
-        Bukkit.getServer().getPluginManager().registerEvents(this, this);
+        getServer().getLogger().info("Started.");
+        Bukkit.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new RightClickEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new DeadPlayerMoveEvent(), this);
+        //Bukkit.getServer().getPluginManager().registerEvents(new HeadPlaceEvent(), this);
 
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        getServer().getLogger().info("Disabled.");
     }
+//    @EventHandler
+//    public void onPlace(BlockPlaceEvent blockPlaceEvent) {
+//        boolean on = false;
+//        Player p = Bukkit.getPlayer(blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName());
+//        if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD) && !blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName().equals("Player Head")) {
+//            assert p != null;
+//            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL); on = true;
+//            p.teleport(blockPlaceEvent.getBlock().getLocation());
+//        }
+//        if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD)) {
+//            blockPlaceEvent.setCancelled(true);
+//            if (on){ blockPlaceEvent.getPlayer().getInventory().remove(blockPlaceEvent.getItemInHand()); assert p != null; blockPlaceEvent.getPlayer().sendMessage(ChatColor.GREEN + "Der Spieler " + p.getName() + " wurde wiederbelebt");}
+//            else blockPlaceEvent.getPlayer().sendMessage("Dieser Spieler ist momentan nicht Online.");
+//        }
+//
+//    }
 
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent deathEvent){
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-        skullMeta.displayName(deathEvent.getPlayer().name());
-        skullMeta.setOwningPlayer(deathEvent.getPlayer());
-        skullMeta.setUnbreakable(true);
-        skull.setItemMeta(skullMeta);
-        Objects.requireNonNull(deathEvent.getPlayer().getKiller()).getWorld().dropItem(deathEvent.getPlayer().getLocation(), skull);
-        if (deathEvent.getPlayer().getKiller() != null) deathEvent.getPlayer().setGameMode(GameMode.SPECTATOR);
-    }
-    @EventHandler
-    public void onPlace(BlockPlaceEvent blockPlaceEvent) {
-        boolean on = false;
-        Player p = Bukkit.getPlayer(blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName());
-        if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD) && !blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName().equals("Player Head")) {
-            assert p != null;
-            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL); on = true;
-            p.teleport(blockPlaceEvent.getBlock().getLocation());
-        }
-        if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD)) {
-            blockPlaceEvent.setCancelled(true);
-            if (on){ blockPlaceEvent.getPlayer().getInventory().remove(blockPlaceEvent.getItemInHand()); assert p != null; blockPlaceEvent.getPlayer().sendMessage(ChatColor.GREEN + "Der Spieler " + p.getName() + " wurde wiederbelebt");}
-            else blockPlaceEvent.getPlayer().sendMessage("Dieser Spieler ist momentan nicht Online.");
-        }
-
-    }
-
-    @EventHandler
-    public void onRightClick(PlayerInteractEvent playerInteractEvent){
-        boolean on = false;
-        Player p = Bukkit.getPlayer(playerInteractEvent.getItem().getItemMeta().getDisplayName());
-        if(playerInteractEvent.getItem().getType().equals(Material.PLAYER_HEAD)){
-            assert p != null;
-            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL); on = true;
-            p.teleport(playerInteractEvent.getPlayer().getLocation());
-        }
-        if (on){ playerInteractEvent.getPlayer().getInventory().remove(playerInteractEvent.getItem()); assert p != null; playerInteractEvent.getPlayer().sendMessage(ChatColor.GREEN + "Der Spieler " + p.getName() + " wurde wiederbelebt");}
-        else playerInteractEvent.getPlayer().sendMessage("Dieser Spieler ist momentan nicht Online.");
-    }
-    @EventHandler
-    public void onMove(PlayerMoveEvent playerMoveEvent){
-        if (playerMoveEvent.getPlayer().getGameMode().equals(GameMode.SPECTATOR)){
-            playerMoveEvent.setCancelled(true);
-        }
-    }
 }
