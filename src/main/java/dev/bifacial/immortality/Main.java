@@ -1,16 +1,14 @@
 package dev.bifacial.immortality;
+
 import dev.bifacial.immortality.Commands.ImmortalityCommand;
 import dev.bifacial.immortality.Listeners.DeadPlayerMoveEvent;
 import dev.bifacial.immortality.Listeners.DeathEvent;
 import dev.bifacial.immortality.Listeners.RightClickEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
