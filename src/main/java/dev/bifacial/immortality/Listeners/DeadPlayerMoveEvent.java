@@ -6,10 +6,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class DeadPlayerMoveEvent implements Listener {
+    private final Main plugin;
+
+    public DeadPlayerMoveEvent(Main plugin) {
+        this.plugin = plugin;
+    }
     @EventHandler
     public void onMove(PlayerMoveEvent playerMoveEvent){
-        Main DeadPlayerManager = new Main();
-        if (DeadPlayerManager.isPlayerDead(playerMoveEvent.getPlayer().getName())){
+        if (plugin.isPlayerDead(playerMoveEvent.getPlayer().getName())){
             playerMoveEvent.setCancelled(true);
         }
     }
