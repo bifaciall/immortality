@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 
 public final class Main extends JavaPlugin{
@@ -20,7 +21,7 @@ public final class Main extends JavaPlugin{
     @Override
     public void onEnable() {
         getLogger().info("Started.");
-        getCommand("toggle").setExecutor(new ImmortalityCommand());
+        Objects.requireNonNull(getCommand("toggle")).setExecutor(new ImmortalityCommand());
         ImmortalityCommand command = new ImmortalityCommand();
         if (command.isActivated()) {
             getServer().getPluginManager().registerEvents(new DeathEvent(), this);
@@ -65,7 +66,7 @@ public final class Main extends JavaPlugin{
         this.deadPlayers.add(deadPlayer);
         saveDeadPlayers();
     }
-    public boolean isPlayerDead(String Playername) {
-        return deadPlayers.contains(Playername);
+    public boolean isPlayerDead(String name) {
+        return deadPlayers.contains(name);
     }
 }
