@@ -1,5 +1,6 @@
 package dev.bifacial.immortality.Listeners;
 
+import dev.bifacial.immortality.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -12,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class RightClickEvent implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent playerInteractEvent) {
+        Main DeadPlayerManager = new Main();
         playerInteractEvent.getPlayer().sendMessage(playerInteractEvent.getItem().getItemMeta().getDisplayName());
         assert playerInteractEvent.getItem() != null;
         Player p = Bukkit.getPlayer(playerInteractEvent.getItem().getItemMeta().getDisplayName());
@@ -23,7 +25,10 @@ public class RightClickEvent implements Listener {
             } else
                 playerInteractEvent.getPlayer().sendMessage(ChatColor.RED + "Dieser Spieler ist momentan nicht Online.");
 
-            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL);
+            if (p.isOnline()){
+                p.setGameMode(GameMode.SURVIVAL);
+                DeadPlayerManager.removeDeadPlayer(p.getName());
+            }
             p.teleport(playerInteractEvent.getPlayer().getLocation());
         }
     }

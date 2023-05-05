@@ -1,5 +1,6 @@
 package dev.bifacial.immortality.Listeners;
 
+import dev.bifacial.immortality.Main;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -12,11 +13,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 public class HeadPlaceEvent implements Listener {
     @EventHandler
     public void onPlace(BlockPlaceEvent blockPlaceEvent) {
-        DeathEvent d = new DeathEvent();
+        Main DeadPlayerManager = new Main();
         Player p = Bukkit.getPlayer(blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName());
         if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD) && !blockPlaceEvent.getItemInHand().getItemMeta().getDisplayName().equals("Player Head")) {
             assert p != null;
-            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL); d.setDead(false);
+            if (p.isOnline()) p.setGameMode(GameMode.SURVIVAL); DeadPlayerManager.removeDeadPlayer(p.getName());
             p.teleport(blockPlaceEvent.getBlock().getLocation());
         }
         if (blockPlaceEvent.getBlock().getType().equals(Material.PLAYER_HEAD)) {

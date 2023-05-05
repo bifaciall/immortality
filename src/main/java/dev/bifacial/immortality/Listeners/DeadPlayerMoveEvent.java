@@ -1,6 +1,6 @@
 package dev.bifacial.immortality.Listeners;
 
-import org.bukkit.GameMode;
+import dev.bifacial.immortality.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class DeadPlayerMoveEvent implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent playerMoveEvent){
-        DeathEvent d = new DeathEvent();
-        if (d.isDead()){
+        Main DeadPlayerManager = new Main();
+        if (DeadPlayerManager.isPlayerDead(playerMoveEvent.getPlayer().getName())){
             playerMoveEvent.setCancelled(true);
         }
     }
