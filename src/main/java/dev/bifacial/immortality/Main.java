@@ -63,10 +63,6 @@ public final class Main extends JavaPlugin{
         saveDeadPlayers();
     }
 
-    public List<String> getDeadPlayers() {
-        return deadPlayers;
-    }
-
     public void addDeadPlayer(String deadPlayer) {
         this.deadPlayers.add(deadPlayer);
         saveDeadPlayers();
