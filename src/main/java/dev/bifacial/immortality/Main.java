@@ -23,7 +23,8 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DeathEvent(this), this);
         Objects.requireNonNull(getCommand("revive")).setExecutor(new RemovePlayerCommand(this));
         getServer().getPluginManager().registerEvents(new DeadPlayerMoveEvent(this), this);
-        getServer().getPluginManager().registerEvents(new HeadPlaceEvent(this), this);
+        getServer().getPluginManager().registerEvents(new RightClickEvent(this), this);
+        getServer().getPluginManager().registerEvents(new HeadPlaceEvent(), this);
 
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();

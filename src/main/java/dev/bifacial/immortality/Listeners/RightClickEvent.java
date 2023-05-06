@@ -22,21 +22,22 @@ public class RightClickEvent implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent playerInteractEvent) throws IOException {
 
-        playerInteractEvent.getPlayer().sendMessage(Objects.requireNonNull(playerInteractEvent.getItem()).getItemMeta().getDisplayName());
+        //playerInteractEvent.getPlayer().sendMessage(Objects.requireNonNull(playerInteractEvent.getItem()).getItemMeta().getDisplayName());
         assert playerInteractEvent.getItem() != null;
-        Player p = Bukkit.getPlayer(playerInteractEvent.getItem().getItemMeta().getDisplayName());
-        if (playerInteractEvent.getPlayer().getItemInHand().getType().equals(Material.PLAYER_HEAD) && !playerInteractEvent.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName().equals("Player Head")) {
-            playerInteractEvent.getPlayer().sendMessage(playerInteractEvent.getItem().displayName());
-            assert p != null;
-            if (p.isOnline()) {
-                playerInteractEvent.getPlayer().getInventory().remove(playerInteractEvent.getItem());
-                p.setGameMode(GameMode.SURVIVAL);
-                plugin.removeDeadPlayer(p.getName());
-                p.teleport(playerInteractEvent.getPlayer().getLocation());
-                playerInteractEvent.getPlayer().sendMessage(ChatColor.GREEN + "Der Spieler " + p.getName() + " wurde wiederbelebt.");
-            } else
-                playerInteractEvent.getPlayer().sendMessage(ChatColor.RED + "Dieser Spieler ist momentan nicht Online.");
-
+        Player p = Bukkit.getPlayer(Objects.requireNonNull(playerInteractEvent.getItem().getItemMeta().getDisplayName()));
+        assert p != null;
+        if (playerInteractEvent.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.PLAYER_HEAD) && !Objects.requireNonNull(playerInteractEvent.getPlayer().getInventory().getItemInMainHand().getItemMeta().displayName()).toString().equals("Player Head")) {
+            playerInteractEvent.getPlayer().sendMessage(p.getName());
+            try {
+                if (p.isOnline() && plugin.isPlayerDead(p.getName())) {
+                    playerInteractEvent.getPlayer().getInventory().remove(playerInteractEvent.getItem());
+                    p.setGameMode(GameMode.SURVIVAL);
+                    plugin.removeDeadPlayer(p.getName());
+                    p.teleport(playerInteractEvent.getPlayer().getLocation());
+                    playerInteractEvent.getPlayer().sendMessage(ChatColor.GREEN + "Der Spieler " + p.getName() + " wurde wiederbelebt.");
+                } else
+                    playerInteractEvent.getPlayer().sendMessage(ChatColor.RED + "Dieser Spieler ist momentan nicht Online oder Lebendig.");
+            }catch (NullPointerException ignored){}
         }
     }
 }
