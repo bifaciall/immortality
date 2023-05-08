@@ -1,9 +1,6 @@
 package dev.bifacial.immortality;
 import dev.bifacial.immortality.Commands.RemovePlayerCommand;
-import dev.bifacial.immortality.Listeners.DeadPlayerMoveEvent;
-import dev.bifacial.immortality.Listeners.DeathEvent;
-import dev.bifacial.immortality.Listeners.HeadPlaceEvent;
-import dev.bifacial.immortality.Listeners.RightClickEvent;
+import dev.bifacial.immortality.Listeners.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -25,6 +22,8 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DeadPlayerMoveEvent(this), this);
         getServer().getPluginManager().registerEvents(new RightClickEvent(this), this);
         getServer().getPluginManager().registerEvents(new HeadPlaceEvent(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinEvent(this), this);
+        getServer().getPluginManager().registerEvents(new AnvilRename(), this);
 
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
